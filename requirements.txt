@@ -1,0 +1,12 @@
+yfinance
+pandas
+numpy
+fastapi
+uvicorn
+sqlalchemy
+psycopg2
+python-multipart
+selenium
+undetected-chromedriver
+setuptools
+python-dotenv
