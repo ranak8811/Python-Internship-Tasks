@@ -10,3 +10,4 @@ selenium
 undetected-chromedriver
 setuptools
 python-dotenv
+webdriver-manager
