@@ -11,7 +11,7 @@ def import_csv_to_db():
     try:
         engine = create_engine(os.getenv("DATABASE_URL"))
         
-        csv_file = "samsung_specs.csv"
+        csv_file = "samsung_specs_processed.csv"
         print(f"Reading {csv_file}...")
         df = pd.read_csv(csv_file)
         

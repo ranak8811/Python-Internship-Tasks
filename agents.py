@@ -16,7 +16,7 @@ def extract_models_from_question(question):
         
     return models
 
-
+# Agent 1 – Data Extractor
 def data_extractor(question):
     question_lower = question.lower()
 
@@ -39,7 +39,7 @@ def data_extractor(question):
 
     return {"intent": "unknown", "data": None}
 
-
+# Agent 2 – Review Generator
 def review_generator(intent, data):
     if intent == "specs":
         row = data.iloc[0]
