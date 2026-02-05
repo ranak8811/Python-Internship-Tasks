@@ -12,7 +12,7 @@ def clean_price(price_str):
         if cleaned:
             return float(cleaned)
         return None
-    except ValueError:
+    except (ValueError, TypeError):
         return None
 
 def clean_battery(battery_str):
@@ -26,11 +26,13 @@ def clean_battery(battery_str):
 
 def clean_camera(camera_str):
 
-    if pd.isna(camera_str):
+    if pd.isna(camera_str) or str(camera_str).strip() == "":
         return "Unknown Camera"
     return str(camera_str).split(',')[0].strip()
 
 def extract_models_from_question(question, all_models=None):
+    if not question or not isinstance(question, str):
+        return []
 
     if all_models is None:
         try:
@@ -50,6 +52,7 @@ def extract_models_from_question(question, all_models=None):
     all_models_sorted = sorted(all_models, key=len, reverse=True)
 
     for model in all_models_sorted:
+        model = model.strip()
         m_lower = model.lower()
         
         if m_lower in question_lower:
@@ -60,18 +63,10 @@ def extract_models_from_question(question, all_models=None):
         
         if len(short_name) >= 2 and short_name in question_lower:
              found_models.append(model)
-    
-    final_models = []
-    # sorting found by length (longest first)
-    found_models.sort(key=len, reverse=True)
-    
-    for m in found_models:
-        is_sub = False
-        for existing in final_models:
-            if m in existing: 
-                is_sub = True
-                break
-        if not is_sub:
-            final_models.append(m)
-            
-    return list(set(final_models))
+
+    final_model = []
+    for m in sorted(found_models, key=len, reverse=True):
+        if not any(m in existing for existing in final_model):
+            final_model.append(m)
+
+    return final_model
