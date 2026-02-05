@@ -9,8 +9,6 @@ class QuestionRequest(BaseModel):
 
 @app.post("/ask")
 def ask_question(req: QuestionRequest):
-    # answer = answer_question(req.question)
-    # return {"answer": answer}
     try:
         answer = answer_question(req.question)
 
